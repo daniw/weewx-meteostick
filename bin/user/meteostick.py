@@ -446,7 +446,7 @@ class Meteostick(object):
         self.rf_threshold = absrfs * 2
         loginf('using rf sensitivity %s (-%s dB)' % (rfs, absrfs))
 
-        fmt = cfg.get('format', 'raw')
+        fmt = cfg.get('format', 'machine')
         if fmt.lower() not in ['machine', 'raw']:
             raise ValueError("unsupported format '%s'" % fmt)
         self.output_format = fmt.lower()
