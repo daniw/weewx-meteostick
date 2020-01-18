@@ -185,7 +185,7 @@ class MeteostickDriver(weewx.drivers.AbstractDevice):
     NUM_CHAN = 10 # 8 channels, one fake channel (9), one unused channel (0)
     DEFAULT_RAIN_BUCKET_TYPE = 1
     DEFAULT_SENSOR_MAP = {
-        #'barometer': 'barometer',
+        'barometer': 'barometer',
         'pressure': 'pressure',
         'in_temp': 'inTemp',  # temperature inside meteostick
         'wind_speed': 'windSpeed',
@@ -653,7 +653,7 @@ class Meteostick(object):
             # B 35.2 1023.57 65%
             if n >= 3:
                 data['in_temp'] = float(parts[1]) # C
-                #data['barometer'] = float(parts[2]) # hPa
+                data['barometer'] = float(parts[2]) # hPa
                 data['pressure'] = float(parts[2]) # hPa
                 if n >= 4:
                     data['channel'] = MACHINE_CHANNEL
@@ -767,7 +767,7 @@ class Meteostick(object):
             data['rf_missed'] = 0  # not available
             if n >= 6:
                 data['in_temp'] = float(parts[3]) / 10.0 # C
-                #data['barometer'] = float(parts[4]) / 100.0 # hPa
+                data['barometer'] = float(parts[4]) / 100.0 # hPa
                 data['pressure'] = float(parts[4]) / 100.0 # hPa
             else:
                 logerr("B: not enough parts (%s) in '%s'" % (n, raw))
