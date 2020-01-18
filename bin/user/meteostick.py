@@ -771,7 +771,7 @@ class Meteostick(object):
             data['channel'] = RAW_CHANNEL # rf_signal data will not be used
             data['rf_signal'] = 0  # not available
             data['rf_missed'] = 0  # not available
-            if n >= 6:
+            if n >= 5:
                 data['in_temp'] = float(parts[3]) / 10.0 # C
                 data['barometer'] = float(parts[4]) / 100.0 # hPa
                 data['pressure'] = float(parts[4]) / 100.0 # hPa
