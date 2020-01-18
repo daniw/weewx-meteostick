@@ -668,7 +668,7 @@ class Meteostick(object):
             # T 3 20.8 36 -53 L
             if n >= 5:
                 data['channel'] = int(parts[1])
-                data['rf_signal'] = int(parts[3])
+                data['rf_signal'] = int(parts[4])
                 bat = 1 if n >= 6 and parts[5] == 'L' else 0
                 if parts[0] == 'W':
                     if iss_ch != 0 and data['channel'] == iss_ch:
@@ -707,7 +707,7 @@ class Meteostick(object):
             # O 7 1 22.3 -51
             if n >= 5:
                 data['channel'] = int(parts[1])
-                data['rf_signal'] = int(parts[3])
+                data['rf_signal'] = int(parts[4])
                 data['bat_leaf_soil'] = 1 if n >= 6 and parts[5] == 'L' else 0
                 if parts[0] == 'L':
                     # bug: the zero values of not connected leaf wetness sensors are also given
