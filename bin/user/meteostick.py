@@ -657,7 +657,7 @@ class Meteostick(object):
                 data['pressure'] = float(parts[2]) # hPa
                 if n >= 4:
                     data['channel'] = MACHINE_CHANNEL
-                    data['rf_signal'] = float(parts[3].strip('%'))
+                    data['rf_signal'] = int(parts[3])
             else:
                 logerr("B: not enough parts (%s) in '%s'" % (n, raw))
         elif parts[0] in 'WT':
@@ -668,7 +668,7 @@ class Meteostick(object):
             # T 3 20.8 36 -53 L
             if n >= 5:
                 data['channel'] = int(parts[1])
-                data['rf_signal'] = float(parts[4])
+                data['rf_signal'] = int(parts[4])
                 bat = 1 if n >= 6 and parts[5] == 'L' else 0
                 if parts[0] == 'W':
                     if iss_ch != 0 and data['channel'] == iss_ch:
@@ -685,14 +685,17 @@ class Meteostick(object):
                         data['bat_th_1'] = bat
                         data['temp_1'] = float(parts[2]) # C
                         data['humid_1'] = float(parts[3]) # %
+                        logerr("[ 1 ] Temp %s Hum %s %" % (float(parts[2]), float(parts[3])))
                     elif th2_ch != 0 and data['channel'] == th2_ch:
                         data['bat_th_2'] = bat
                         data['temp_2'] = float(parts[2]) # C
                         data['humid_2'] = float(parts[3]) # %
+                        logerr("[ 2 ] Temp %s Hum %s %" % (float(parts[2]), float(parts[3])))
                     else:
                         data['bat_iss'] = bat
                         data['temperature'] = float(parts[2]) # C
                         data['humidity'] = float(parts[3]) # %
+                        logerr("[def] Temp %s Hum %s %" % (float(parts[2]), float(parts[3])))
             else:
                 logerr("WT: not enough parts (%s) in '%s'" % (n, raw))
         elif parts[0] in 'LMO':
@@ -702,7 +705,7 @@ class Meteostick(object):
             # O 7 1 22.3 -51
             if n >= 5:
                 data['channel'] = int(parts[1])
-                data['rf_signal'] = float(parts[4])
+                data['rf_signal'] = int(parts[4])
                 data['bat_leaf_soil'] = 1 if n >= 6 and parts[5] == 'L' else 0
                 if parts[0] == 'L':
                     # bug: the zero values of not connected leaf wetness sensors are also given
@@ -730,7 +733,7 @@ class Meteostick(object):
             # P 1 21.1 -68
             if n >= 4:
                 data['channel'] = int(parts[1])
-                data['rf_signal'] = float(parts[3])
+                data['rf_signal'] = int(parts[3])
                 data['bat_iss'] = 1 if n >= 5 and parts[4] == 'L' else 0
                 if parts[0] == 'R':
                     rain_count = int(parts[2])
@@ -740,6 +743,7 @@ class Meteostick(object):
                         # rain_count == 128 is no sensor
                         loginf("ignoring invalid rain %s on channel %s" %
                                (rain_count, data['channel']))
+                    data['rf_signal'] = int(parts[4])
                 elif parts[0] == 'S':
                     data['solar_radiation'] = float(parts[2])  # W/m^2
                 elif parts[0] == 'U':
