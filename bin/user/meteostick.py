@@ -645,7 +645,7 @@ class Meteostick(object):
         parts = Meteostick.get_parts(raw)
         n = len(parts)
         data['channel'] = 0  # preset not available
-        #data['rf_signal'] = 0  # preset not available
+        data['rf_signal'] = 0  # preset not available
         data['rf_missed'] = 0  # preset not available
         if parts[0] == 'B':
             # message examples:
