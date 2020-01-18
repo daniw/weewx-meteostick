@@ -683,8 +683,10 @@ class Meteostick(object):
                 elif parts[0] == 'T':
                     if th1_ch != 0 and data['channel'] == th1_ch:
                         data['bat_th_1'] = bat
-                        data['temp_1'] = float(parts[2]) # C
-                        data['humid_1'] = float(parts[3]) # %
+                        #data['temp_1'] = float(parts[2]) # C
+                        #data['humid_1'] = float(parts[3]) # %
+                        data['temperature'] = float(parts[2]) # C
+                        data['humidity'] = float(parts[3]) # %
                         logerr("[ 1 ] Temp %s Hum %s" % (float(parts[2]), float(parts[3])))
                     elif th2_ch != 0 and data['channel'] == th2_ch:
                         data['bat_th_2'] = bat
